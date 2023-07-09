@@ -8,8 +8,11 @@ async function topAiringAnime() {
     for (const anime of airingAnime) {
         const card = document.createElement('article');
         card.setAttribute('class', 'card')
-        card.innerHTML = `<img src=${anime.images.jpg.image_url} alt='${anime.title}'>\n` +
-            `<h3>${anime.title}</h3>`
+        card.innerHTML =
+            `<a href='#'>\n` +
+            `<img src=${anime.images.jpg.image_url} alt='${anime.title}'>\n` +
+            `<h3>${anime.title}</h3>\n` +
+            `</a>`
         topCards.append(card);
     }
 }
