@@ -1,0 +1,15 @@
+{% extends "reviews/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'reviews/index.js' %}" defer></script>
+{% endblock %}
+
+{% block main %}
+    <section>
+        <div id="top-anime">
+            <h1>Top Airing Anime</h1>
+            <div id="top-anime-cards" class="cards"></div>
+        </div>
+    </section>
+{% endblock %}
