@@ -6,7 +6,7 @@ async function topAiringAnime() {
 
     const response = await fetch('https://api.jikan.moe/v4/top/anime?filter=airing');
     const data = await response.json();
-    const airingAnime = data.data.splice(0, 5);
+    const airingAnime = data.data.splice(0, 10);
 
     topCards.innerHTML = '';
     for (const anime of airingAnime) {
