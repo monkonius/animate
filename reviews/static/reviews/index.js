@@ -1,10 +1,14 @@
 async function topAiringAnime() {
+    const loader = document.createElement('div');
+    loader.setAttribute('class', 'loader');
+    const topCards = document.getElementById('top-anime-cards');
+    topCards.append(loader);
+
     const response = await fetch('https://api.jikan.moe/v4/top/anime?filter=airing');
     const data = await response.json();
     const airingAnime = data.data.splice(0, 5);
-    
 
-    const topCards = document.getElementById('top-anime-cards');
+    topCards.innerHTML = '';
     for (const anime of airingAnime) {
         const card = document.createElement('article');
         card.setAttribute('class', 'card')
