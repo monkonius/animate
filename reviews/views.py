@@ -1,5 +1,12 @@
 from django.shortcuts import render
 
-# Create your views here.
+
 def index(request):
+    query = request.GET.get('q')
+    print(query)
+    if query:
+        return render(request, "reviews/search.html", {
+            "query": query
+        })
+
     return render(request, "reviews/index.html")
