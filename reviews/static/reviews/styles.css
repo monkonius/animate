@@ -13,12 +13,35 @@ body {
     min-height: 100vh;
 }
 
+header {
+    position: sticky;
+    top: 0;
+    background-color: #11171a;
+}
+
 h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
 input:focus {
     outline: none;
+}
+
+.header-items {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.25rem;
+}
+
+.logo {
+    text-decoration: none;
+}
+
+.logo-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: 0.125rem;
 }
 
 .section-container {
@@ -28,7 +51,7 @@ input:focus {
 }
 
 .section-wrapper {
-    padding: 1rem;
+    padding: 2rem 1rem;
     display: flex;
     justify-content: center;
 }
