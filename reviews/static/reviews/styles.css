@@ -17,6 +17,7 @@ header {
     position: sticky;
     top: 0;
     background-color: #11171a;
+    z-index: 99;
 }
 
 h1, h2, h3, h4, h5, h6 {
