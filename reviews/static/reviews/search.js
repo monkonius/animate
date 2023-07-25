@@ -19,7 +19,7 @@ async function searchAnime() {
             const card = document.createElement('article');
             card.setAttribute('class', 'card')
             card.innerHTML =
-                `<a href='#'>\n` +
+                `<a href='/anime/${anime.mal_id}'>\n` +
                 `<img src=${anime.images.jpg.image_url} alt='${anime.title}'>\n` +
                 `<h3>${anime.title}</h3>\n` +
                 `</a>`
