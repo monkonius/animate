@@ -132,6 +132,33 @@ input:focus {
     height: 21rem;
 }
 
+.anime-info {
+    text-align: center;
+    width: 100%;
+}
+
+.anime-wrapper {
+    margin-top: 1rem;
+    display: flex;
+    gap: 2rem;
+    text-align: left;
+}
+
+.anime-info img {
+    object-fit: cover;
+    display: inline-block;
+    width: 20rem;
+    height: 30rem;
+}
+
+.anime-info h2 {
+    text-align: left;
+}
+
+.synopsis {
+    flex: 1 1 70%;
+}
+
 .loader {
     margin: auto;
     border: 0.25rem solid #eaf0f6;

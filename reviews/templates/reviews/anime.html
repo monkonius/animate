@@ -1,0 +1,42 @@
+{% extends "reviews/layout.html" %}
+{% load static %}
+
+{% block main %}
+    <section>
+        <div class="section-container">
+            <div class="section-wrapper">
+                <form class="search-form" action"/" method="get">
+                    <input class="search-input" type="text" name="q" id="search" placeholder="Search anime" required>
+                    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="section-container">
+            <div class="section-wrapper">
+                <div class="anime-info">
+                    <h1>{{ anime.title }}</h1>
+                    <p>Also known as {% for synonym in anime.title_synonyms %} <strong>{{ synonym }}</strong>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                    <div class="anime-wrapper">
+                        <div>
+                            <img src="{{ anime.images.jpg.large_image_url }}" alt="{{ anime.title }}">
+                        </div>
+                        <div class="synopsis">
+                            <p>{{ anime.synopsis }}</p>
+                        </div>
+                        <div>
+                            <h2>Information</h2>
+                            <p>Type: {{ anime.type }}</p>
+                            <p>Episodes: {%if anime.episodes %} {{anime.episodes }} {% else %} Unknown {% endif %}</p>
+                            <p>Status: {{ anime.status }}</p>
+                            <p>Aired: {{ anime.aired.string }}</p>
+                            <p>Genres: {% for genre in anime.genres %} {{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                            <p>Studios: {% for studio in anime.studios %} {{ studio.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
