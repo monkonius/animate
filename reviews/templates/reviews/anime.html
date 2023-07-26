@@ -17,7 +17,9 @@
             <div class="section-wrapper">
                 <div class="anime-info">
                     <h1>{{ anime.title }}</h1>
-                    <p>Also known as {% for synonym in anime.title_synonyms %} <strong>{{ synonym }}</strong>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                    {% if anime.title_synonyms %}
+                        <p>Also known as {% for synonym in anime.title_synonyms %} <strong>{{ synonym }}</strong>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                    {% endif %}
                     <div class="anime-wrapper">
                         <div>
                             <img src="{{ anime.images.jpg.large_image_url }}" alt="{{ anime.title }}">
