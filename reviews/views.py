@@ -29,9 +29,26 @@ def anime(request, anime_id):
     })
 
 
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Logged In!')
+            return HttpResponseRedirect(reverse('index'))
+        else:
+            messages.error(request, 'Invalid username and/or password.')
+            return render(request, 'reviews/login.html')
+    else:
+        return render(request, 'reviews/login.html')
+
+
 def logout_view(request):
     logout(request)
-    messages.success('Logged out!')
+    messages.success(request, 'Logged out!')
     return HttpResponseRedirect(reverse('index'))
 
 
