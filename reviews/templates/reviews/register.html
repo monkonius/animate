@@ -1,0 +1,29 @@
+{% extends "reviews/layout.html" %}
+
+{% block main %}
+    <section>
+        <div class="section-container">
+            <div class="section-wrapper">
+                <div class="auth-wrapper">
+                    <h1>Register</h1>
+                    <form action="{% url 'register' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-inputs">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" required>
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" required>
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" required>
+                            <label for="confirm">Confirm Password</label>
+                            <input type="password" name="confirm" id="confirm" required>
+                            <div style="text-align: center;">
+                                <input  class="button" type="submit" value="Create Account">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
