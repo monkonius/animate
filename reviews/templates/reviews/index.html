@@ -15,7 +15,11 @@
                         Are you an anime fan looking for a centralized database to browse through? Look no further than Animate!
                         We provide a user-friendly platform for all of your anime needs. Join the community today!
                     </p>
-                    <a class="button" href="{% url 'register' %}">Sign Up</a>
+                    {% if user.is_authenticated %}
+                        <a class="button" href="{% url 'logout' %}">Log Out</a>
+                    {% else %}
+                        <a class="button" href="{% url 'register' %}">Sign Up</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

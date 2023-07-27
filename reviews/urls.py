@@ -5,5 +5,6 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("anime/<int:anime_id>", views.anime, name="anime"),
+    path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register")
 ]

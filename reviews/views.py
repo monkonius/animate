@@ -29,6 +29,12 @@ def anime(request, anime_id):
     })
 
 
+def logout_view(request):
+    logout(request)
+    messages.success('Logged out!')
+    return HttpResponseRedirect(reverse('index'))
+
+
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
