@@ -208,6 +208,20 @@ input:focus {
     background-color: #263238;
 }
 
+.alert {
+    padding: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.alert.success {
+    background-color: #bfdbfe;
+}
+
+.alert.error {
+    background-color: #fecaca;
+}
+
 .loader {
     margin: auto;
     border: 0.25rem solid #eaf0f6;
