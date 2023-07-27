@@ -155,10 +155,6 @@ input:focus {
     text-align: left;
 }
 
-.synopsis {
-    flex: 1 1 70%;
-}
-
 .loader {
     margin: auto;
     border: 0.25rem solid #eaf0f6;

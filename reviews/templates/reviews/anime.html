@@ -24,10 +24,8 @@
                         <div>
                             <img src="{{ anime.images.jpg.large_image_url }}" alt="{{ anime.title }}">
                         </div>
-                        <div class="synopsis">
-                            <p>{{ anime.synopsis }}</p>
-                        </div>
                         <div>
+                            <p>{{ anime.synopsis }}</p>
                             <h2>Information</h2>
                             <p>Type: {{ anime.type }}</p>
                             <p>Episodes: {%if anime.episodes %} {{anime.episodes }} {% else %} Unknown {% endif %}</p>
