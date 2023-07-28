@@ -171,6 +171,12 @@ input:focus {
     border-radius: 4rem;
 }
 
+.auth-link {
+    color: #0000ee;
+    margin-top: 0.5rem;
+    text-align: right;
+}
+
 .form-inputs {
     display: flex;
     flex-direction: column;
