@@ -59,12 +59,6 @@ input:focus {
     max-width: 76rem;
 }
 
-.section-wrapper {
-    padding: 2rem 1rem;
-    display: flex;
-    justify-content: center;
-}
-
 .form-wrapper {
     display: flex;
     justify-content: center;
@@ -228,6 +222,12 @@ input:focus {
 }
 
 @media only screen and (max-width: 767px) {
+    .section-wrapper {
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: center;
+    }
+
     .anime-wrapper {
         margin-top: 1rem;
         display: flex;
@@ -237,6 +237,12 @@ input:focus {
 }
 
 @media only screen and (min-width: 768px) {
+    .section-wrapper {
+        padding: 2rem 1rem;
+        display: flex;
+        justify-content: center;
+    }
+
     .anime-wrapper {
         margin-top: 1rem;
         display: flex;
