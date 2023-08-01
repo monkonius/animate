@@ -32,7 +32,13 @@
                             <p>Status: {{ anime.status }}</p>
                             <p>Aired: {{ anime.aired.string }}</p>
                             <p>Genres: {% for genre in anime.genres %} {{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-                            <p>Studios: {% for studio in anime.studios %} {{ studio.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                            <p>Studios: 
+                                {% if anime.studios %}
+                                    {% for studio in anime.studios %} {{ studio.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                                {% else %}
+                                    None found
+                                {% endif %}
+                            </p>
                         </div>
                     </div>
                 </div>
