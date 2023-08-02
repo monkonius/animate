@@ -4,3 +4,21 @@ from django.db import models
 class User(AbstractUser):
     id = models.BigAutoField(primary_key=True)
     pass
+
+
+class Review(models.Model):
+    RECOMMENDATION = [
+        ('RE', 'Recommended'),
+        ('MF', 'Mixed Feelings'),
+        ('NR', 'Not Recommended')
+    ]
+    
+    id = models.BigAutoField(primary_key=True)
+    anime_id = models.IntegerField()
+    content = models.TextField()
+    recommendation = models.CharField(max_length=2, choices=RECOMMENDATION, default=None)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Review on anime no. {self.anime_id} by {self.author}'
