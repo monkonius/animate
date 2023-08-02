@@ -8,6 +8,8 @@ import requests
 import json
 
 from .models import User
+from .forms import ReviewForm
+
 
 def index(request):
     query = request.GET.get('q')
@@ -23,6 +25,12 @@ def anime(request, anime_id):
     response = requests.get(f'https://api.jikan.moe/v4/anime/{anime_id}')
     data = json.loads(response.text)
     anime = data['data']
+
+    if not request.user.is_anonymous:
+        return render(request, 'reviews/anime.html', {
+            'anime': anime,
+            'form': ReviewForm()
+        })
 
     return render(request, 'reviews/anime.html', {
         'anime': anime,
