@@ -45,4 +45,22 @@
             </div>
         </div>
     </section>
+    <section>
+        <div class="section-container">
+            <div class="section-wrapper">
+                {% if user.is_authenticated %}
+                    <div class="review-form">
+                        <h2>Write a Review</h2>
+                        <form action="{% url 'anime' anime.mal_id %}" method="post">
+                            {% csrf_token %}
+                            {{ form }}
+                            <div class="button-wrapper">
+                                <input class="button" type="submit" value="Post">
+                            </div>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
 {% endblock %}
