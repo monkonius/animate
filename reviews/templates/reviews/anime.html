@@ -48,18 +48,38 @@
     <section>
         <div class="section-container">
             <div class="section-wrapper">
-                {% if user.is_authenticated %}
-                    <div class="review-form">
-                        <h2>Write a Review</h2>
-                        <form action="{% url 'anime' anime.mal_id %}" method="post">
-                            {% csrf_token %}
-                            {{ form }}
-                            <div class="button-wrapper">
-                                <input class="button" type="submit" value="Post">
-                            </div>
-                        </form>
+                <div class="review-section">
+                    {% if user.is_authenticated %}
+                        <div class="review-form">
+                            <h2>Write a Review</h2>
+                            <form action="{% url 'anime' anime.mal_id %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="anime_id" value="{{ anime.mal_id }}">
+                                {{ form }}
+                                <div class="button-wrapper">
+                                    <input class="button" type="submit" value="Post">
+                                </div>
+                            </form>
+                        </div>
+                    {% endif %}
+                    <div class="reviews">
+                        <h2>Reviews</h2>
+                        {% if reviews %}
+                            {% for review in reviews %}
+                                <div class="review">
+                                    <div class="review-header">
+                                        <span>{{ review.author }}</span>
+                                        <span>{{ review.time }}</span>
+                                    </div>
+                                    <span>{{ review.get_recommendation_display }}</span>
+                                    <p>{{ review.content|linebreaksbr }}</p>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>No reviews yet! Be the first to write one!</p>
+                        {% endif %}
                     </div>
-                {% endif %}
+                </div>
             </div>
         </div>
     </section>
