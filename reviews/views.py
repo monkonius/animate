@@ -7,7 +7,7 @@ from django.contrib import messages
 import requests
 import json
 
-from .models import User
+from .models import User, Review
 from .forms import ReviewForm
 
 
@@ -26,14 +26,35 @@ def anime(request, anime_id):
     data = json.loads(response.text)
     anime = data['data']
 
+    reviews = Review.objects.filter(anime_id=anime_id).order_by('-time')
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            anime_id = request.POST.get('anime_id')
+            content = form.cleaned_data['content']
+            recommendation = form.cleaned_data['recommendation']
+            author = request.user
+
+            new_review = Review(
+                anime_id=int(anime_id), content=content, 
+                recommendation=recommendation, author=author
+            )
+            new_review.save()
+
+            messages.success(request, 'Review posted!')
+            return HttpResponseRedirect(reverse('anime', kwargs={'anime_id': anime_id}))
+
     if not request.user.is_anonymous:
         return render(request, 'reviews/anime.html', {
             'anime': anime,
+            'reviews': reviews,
             'form': ReviewForm()
         })
 
     return render(request, 'reviews/anime.html', {
         'anime': anime,
+        'reviews': reviews
     })
 
 
