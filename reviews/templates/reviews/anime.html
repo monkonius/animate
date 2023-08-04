@@ -1,6 +1,10 @@
 {% extends "reviews/layout.html" %}
 {% load static %}
 
+{% block script %}
+    <script src="{% static 'reviews/review.js' %}" defer></script>
+{% endblock %}
+
 {% block main %}
     <section>
         <div class="section-container">
@@ -50,6 +54,7 @@
             <div class="section-wrapper">
                 <div class="review-section">
                     {% if user.is_authenticated %}
+                        <button id="review-toggle" class="button" onclick="toggleReview()">Write a Review</button>
                         <div class="review-form">
                             <h2>Write a Review</h2>
                             <form action="{% url 'anime' anime.mal_id %}" method="post">
@@ -57,6 +62,7 @@
                                 <input type="hidden" name="anime_id" value="{{ anime.mal_id }}">
                                 {{ form }}
                                 <div class="button-wrapper">
+                                    <input class="button" type="button" value="Cancel" onclick="toggleReview()">
                                     <input class="button" type="submit" value="Post">
                                 </div>
                             </form>

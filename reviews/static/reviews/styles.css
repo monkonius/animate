@@ -218,6 +218,7 @@ label {
 }
 
 .review-form {
+    display: none;
     width: 100%;
     text-align: center;
 }
@@ -266,6 +267,14 @@ label {
     width: 2rem;
     height: 2rem;
     animation: spinner 1s linear infinite;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
 }
 
 #id_recommendation {
