@@ -212,6 +212,10 @@ label {
     padding: 2rem;
 }
 
+.review a:visited {
+    color: #0000ee;
+}
+
 .review-header {
     display: flex;
     justify-content: space-between;
