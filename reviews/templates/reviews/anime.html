@@ -74,7 +74,7 @@
                             {% for review in reviews %}
                                 <div class="review">
                                     <div class="review-header">
-                                        <span>{{ review.author }}</span>
+                                        <strong><a href="{% url 'profile' review.author %}">{{ review.author }}</a></strong>
                                         <span>{{ review.time }}</span>
                                     </div>
                                     <span>{{ review.get_recommendation_display }}</span>
