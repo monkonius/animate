@@ -58,6 +58,16 @@ def anime(request, anime_id):
     })
 
 
+def profile(request, username):
+    profile_user = User.objects.get(username=username)
+    reviews = Review.objects.filter(author=profile_user.id).order_by('-time')
+
+    return render(request, 'reviews/profile.html', {
+        'profile_username': profile_user.username,
+        'reviews': reviews
+    })
+
+
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
