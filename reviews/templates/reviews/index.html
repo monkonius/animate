@@ -1,6 +1,10 @@
 {% extends "reviews/layout.html" %}
 {% load static %}
 
+{% block title %}
+    <title>Animate</title>
+{% endblock %}
+
 {% block script %}
     <script src="{% static 'reviews/index.js' %}" defer></script>
 {% endblock %}

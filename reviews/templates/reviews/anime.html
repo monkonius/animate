@@ -1,6 +1,10 @@
 {% extends "reviews/layout.html" %}
 {% load static %}
 
+{% block title %}
+    <title>{{ anime.title }}</title>
+{% endblock %}
+
 {% block script %}
     <script src="{% static 'reviews/review.js' %}" defer></script>
 {% endblock %}
