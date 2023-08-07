@@ -85,6 +85,16 @@ def profile(request, username):
     profile_user = User.objects.get(username=username)
     reviews = Review.objects.filter(author=profile_user.id).order_by('-time')
 
+    if not request.user.is_anonymous:
+        user = User.objects.get(id=request.user.id)
+        liked_reviews = list(map(lambda x: x.review, user.likes.all()))
+
+        return render(request, 'reviews/profile.html', {
+            'profile_username': profile_user.username,
+            'reviews': reviews,
+            'liked_reviews': liked_reviews
+        })
+
     return render(request, 'reviews/profile.html', {
         'profile_username': profile_user.username,
         'reviews': reviews
