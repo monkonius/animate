@@ -84,10 +84,17 @@
                                     <span>{{ review.get_recommendation_display }}</span>
                                     <p>{{ review.content|linebreaksbr }}</p>
                                     {% if user.is_authenticated %}
-                                        <div class="like" onclick="likeReview(this)">
-                                            <i class="fa fa-thumbs-up"></i>
-                                            <span>{{ review.likes.all|length }}</span>
-                                        </div>
+                                        {% if review in liked_reviews %}
+                                            <div class="like liked" onclick="likeReview(this)">
+                                                <i class="fa fa-thumbs-up"></i>
+                                                <span>{{ review.likes.all|length }}</span>
+                                            </div>
+                                        {% else %}
+                                            <div class="like" onclick="likeReview(this)">
+                                                <i class="fa fa-thumbs-up"></i>
+                                                <span>{{ review.likes.all|length }}</span>
+                                            </div>
+                                        {% endif %}
                                     {% endif %}
                                 </div>
                             {% endfor %}
