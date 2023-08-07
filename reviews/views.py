@@ -1,13 +1,14 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 import requests
 import json
 
-from .models import User, Review
+from .models import User, Review, Like
 from .forms import ReviewForm
 
 
@@ -56,6 +57,24 @@ def anime(request, anime_id):
         'anime': anime,
         'reviews': reviews
     })
+
+
+@login_required
+def like(request, review_id):
+    if request.method != 'POST':
+        messages.error(request, 'That method is not allowed.')
+        return HttpResponseRedirect(reverse('index'))
+    
+    user = User.objects.get(id=request.user.id)
+    review = Review.objects.get(id=review_id)
+
+    like, created = Like.objects.get_or_create(user=user, review=review)
+    if not created:
+        like.delete()
+    else:
+        review.likes.add(like)
+
+    return JsonResponse({'created': created}, status=201)
 
 
 def profile(request, username):
