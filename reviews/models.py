@@ -22,3 +22,9 @@ class Review(models.Model):
 
     def __str__(self):
         return f'Review on anime no. {self.anime_id} by {self.author}'
+    
+
+class Like(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='likes')
