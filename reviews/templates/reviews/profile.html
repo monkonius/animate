@@ -24,7 +24,7 @@
                     <h2>Their Reviews</h2>
                         {% if reviews %}
                             {% for review in reviews %}
-                                <div class="review">
+                                <div id="{{ review.id }}" class="review">
                                     <div class="review-header">
                                         <a href="{% url 'anime' review.anime_id %}">{{ review.anime_id }}</a>
                                         <span>{{ review.time }}</span>
