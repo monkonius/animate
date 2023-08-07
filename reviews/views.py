@@ -47,9 +47,13 @@ def anime(request, anime_id):
             return HttpResponseRedirect(reverse('anime', kwargs={'anime_id': anime_id}))
 
     if not request.user.is_anonymous:
+        user = User.objects.get(id=request.user.id)
+        liked_reviews = list(map(lambda x: x.review, user.likes.all()))
+
         return render(request, 'reviews/anime.html', {
             'anime': anime,
             'reviews': reviews,
+            'liked_reviews': liked_reviews,
             'form': ReviewForm()
         })
 
