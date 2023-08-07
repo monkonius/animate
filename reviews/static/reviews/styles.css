@@ -227,6 +227,15 @@ label {
     text-align: center;
 }
 
+.like {
+    width: fit-content;
+    cursor: pointer;
+}
+
+.liked {
+    color: #dc2626;
+}
+
 .button-wrapper {
     margin-top: 1rem;
     text-align: center;

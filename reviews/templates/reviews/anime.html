@@ -76,13 +76,19 @@
                         <h2>Reviews</h2>
                         {% if reviews %}
                             {% for review in reviews %}
-                                <div class="review">
+                                <div id="{{ review.id }}" class="review">
                                     <div class="review-header">
                                         <strong><a href="{% url 'profile' review.author %}">{{ review.author }}</a></strong>
                                         <span>{{ review.time }}</span>
                                     </div>
                                     <span>{{ review.get_recommendation_display }}</span>
                                     <p>{{ review.content|linebreaksbr }}</p>
+                                    {% if user.is_authenticated %}
+                                        <div class="like" onclick="likeReview(this)">
+                                            <i class="fa fa-thumbs-up"></i>
+                                            <span>{{ review.likes.all|length }}</span>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             {% endfor %}
                         {% else %}
