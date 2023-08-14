@@ -1,4 +1,5 @@
 __pychache__/
 .venv/
+.env
 *.pyc
 *.sqlite3
