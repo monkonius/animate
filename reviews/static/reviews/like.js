@@ -15,11 +15,11 @@ function getCookie(name) {
 }
 
 function likeReview(node) {
-    const likeCount = node.children[1];
-    node.classList.toggle('liked');
+    const like = node.children[1];
+    node.classList.toggle('highlighted');
 
-    const review = node.parentElement;
-    let count = Number(likeCount.innerHTML)
+    const review = node.parentElement.parentElement;
+    let likeCount = Number(like.innerHTML)
 
     const csrftoken = getCookie('csrftoken');
     fetch(`/like/${review.id}`, {
@@ -29,7 +29,43 @@ function likeReview(node) {
     })
         .then(response => response.json())
         .then(data => {
-            data.created ? count++ : count--;
-            likeCount.innerHTML = count;
+            data.created ? likeCount++ : likeCount--;
+            like.innerHTML = likeCount;
+
+            if (data.dislike_exists) {
+                const dislike = node.nextElementSibling;
+                dislike.classList.toggle('highlighted');
+
+                let dislikeCount = Number(dislike.children[1].innerHTML);
+                dislike.children[1].innerHTML = --dislikeCount;
+            }
+        })
+}
+
+function dislikeReview(node) {
+    const dislike = node.children[1];
+    node.classList.toggle('highlighted');
+
+    const review = node.parentElement.parentElement;
+    let dislikeCount = Number(dislike.innerHTML)
+
+    const csrftoken = getCookie('csrftoken');
+    fetch(`/dislike/${review.id}`, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': csrftoken },
+        mode: 'same-origin'
+    })
+        .then(response => response.json())
+        .then(data => {
+            data.created ? dislikeCount++ : dislikeCount--;
+            dislike.innerHTML = dislikeCount;
+
+            if (data.like_exists) {
+                const like = node.previousElementSibling;
+                like.classList.toggle('highlighted');
+
+                let likeCount = Number(like.children[1].innerHTML);
+                like.children[1].innerHTML = --likeCount;
+            }
         })
 }
