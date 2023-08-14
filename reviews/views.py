@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 import requests
 import json
 
-from .models import User, Review, Like
+from .models import User, Review, Like, Dislike
 from .forms import ReviewForm
 
 
@@ -49,11 +49,13 @@ def anime(request, anime_id):
     if not request.user.is_anonymous:
         user = User.objects.get(id=request.user.id)
         liked_reviews = list(map(lambda x: x.review, user.likes.all()))
+        disliked_reviews = list(map(lambda x: x.review, user.dislikes.all()))
 
         return render(request, 'reviews/anime.html', {
             'anime': anime,
             'reviews': reviews,
             'liked_reviews': liked_reviews,
+            'disliked_reviews': disliked_reviews,
             'form': ReviewForm()
         })
 
@@ -73,12 +75,38 @@ def like(request, review_id):
     review = Review.objects.get(id=review_id)
 
     like, created = Like.objects.get_or_create(user=user, review=review)
+    dislike = Dislike.objects.filter(user=user, review=review)
+    dislike_exists = dislike.exists()
     if not created:
         like.delete()
     else:
         review.likes.add(like)
+        if dislike_exists:
+            dislike.delete()
 
-    return JsonResponse({'created': created}, status=201)
+    return JsonResponse({'created': created, 'dislike_exists': dislike_exists}, status=201)
+
+
+@login_required
+def dislike(request, review_id):
+    if request.method != 'POST':
+        messages.error(request, 'That method is not allowed.')
+        return HttpResponseRedirect(reverse('index'))
+    
+    user = User.objects.get(id=request.user.id)
+    review = Review.objects.get(id=review_id)
+
+    dislike, created = Dislike.objects.get_or_create(user=user, review=review)
+    like = Like.objects.filter(user=user, review=review)
+    like_exists = like.exists()
+    if not created:
+        dislike.delete()
+    else:
+        review.dislikes.add(dislike)
+        if like_exists:
+            like.delete()
+
+    return JsonResponse({'created': created, 'like_exists': like_exists}, status=201)
 
 
 def profile(request, username):
