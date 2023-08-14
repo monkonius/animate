@@ -116,11 +116,13 @@ def profile(request, username):
     if not request.user.is_anonymous:
         user = User.objects.get(id=request.user.id)
         liked_reviews = list(map(lambda x: x.review, user.likes.all()))
+        disliked_reviews = list(map(lambda x: x.review, user.dislikes.all()))
 
         return render(request, 'reviews/profile.html', {
             'profile_username': profile_user.username,
             'reviews': reviews,
-            'liked_reviews': liked_reviews
+            'liked_reviews': liked_reviews,
+            'disliked_reviews': disliked_reviews
         })
 
     return render(request, 'reviews/profile.html', {

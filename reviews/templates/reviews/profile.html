@@ -33,14 +33,37 @@
                                     <p>{{ review.content|linebreaksbr }}</p>
                                     {% if user.is_authenticated %}
                                         {% if review in liked_reviews %}
-                                            <div class="like liked" onclick="likeReview(this)">
-                                                <i class="fa fa-thumbs-up"></i>
-                                                <span>{{ review.likes.all|length }}</span>
+                                            <div class="review-interaction">
+                                                <div class="like highlighted" onclick="likeReview(this)">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                    <span>{{ review.likes.all|length }}</span>
+                                                </div>
+                                                <div class="dislike" onclick="dislikeReview(this)">
+                                                    <i class="fa fa-thumbs-down"></i>
+                                                    <span>{{ review.dislikes.all|length }}</span>
+                                                </div>
+                                            </div>
+                                        {% elif review in disliked_reviews %}
+                                            <div class="review-interaction">
+                                                <div class="like" onclick="likeReview(this)">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                    <span>{{ review.likes.all|length }}</span>
+                                                </div>
+                                                <div class="dislike highlighted" onclick="dislikeReview(this)">
+                                                    <i class="fa fa-thumbs-down"></i>
+                                                    <span>{{ review.dislikes.all|length }}</span>
+                                                </div>
                                             </div>
                                         {% else %}
-                                            <div class="like" onclick="likeReview(this)">
-                                                <i class="fa fa-thumbs-up"></i>
-                                                <span>{{ review.likes.all|length }}</span>
+                                            <div class="review-interaction">
+                                                <div class="like" onclick="likeReview(this)">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                    <span>{{ review.likes.all|length }}</span>
+                                                </div>
+                                                <div class="dislike" onclick="dislikeReview(this)">
+                                                    <i class="fa fa-thumbs-down"></i>
+                                                    <span>{{ review.dislikes.all|length }}</span>
+                                                </div>
                                             </div>
                                         {% endif %}
                                     {% endif %}
