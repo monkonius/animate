@@ -269,12 +269,19 @@ label {
     text-align: center;
 }
 
-.like {
+.review-interaction {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 2rem;
+}
+
+.like, .dislike {
     width: fit-content;
     cursor: pointer;
 }
 
-.liked {
+.highlighted {
     color: #dc2626;
 }
 
