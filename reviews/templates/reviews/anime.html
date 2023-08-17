@@ -82,7 +82,22 @@
                                         <strong><a href="{% url 'profile' review.author %}">{{ review.author }}</a></strong>
                                         <span>{{ review.time }}</span>
                                     </div>
-                                    <span>{{ review.get_recommendation_display }}</span>
+                                    {% if review.recommendation == 'RE' %}
+                                        <div class="recommendation">
+                                            <i class="fa fa-star"></i>
+                                            {{ review.get_recommendation_display }}
+                                        </div>
+                                    {% elif review.recommendation == 'MF' %}
+                                        <div class="recommendation">
+                                            <i class="fa fa-star-half-stroke"></i>
+                                            {{ review.get_recommendation_display }}
+                                        </div>
+                                    {% else %}
+                                        <div class="recommendation">
+                                            <i class="fa-regular fa-star"></i>
+                                            {{ review.get_recommendation_display }}
+                                        </div>
+                                    {% endif %}
                                     <p>{{ review.content|linebreaksbr }}</p>
                                     {% if user.is_authenticated %}
                                         {% if review in liked_reviews %}
