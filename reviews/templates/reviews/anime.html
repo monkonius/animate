@@ -76,6 +76,15 @@
                     <div class="reviews">
                         <h2>Reviews</h2>
                         {% if reviews %}
+                            <div class="sorting">
+                                <label for="sort-by">Sort by:</label>
+                                <select name="sort-by" id="sort-by">
+                                    <option value="latest">Latest (default)</option>
+                                    <option value="oldest">Oldest</option>
+                                    <option value="likes">Likes</option>
+                                    <option value="dislikes">Dislikes</option>
+                                </select>
+                            </div>
                             {% for review in reviews %}
                                 <div id="{{ review.id }}" class="review">
                                     <div class="review-header">

@@ -46,6 +46,7 @@ textarea {
 
 label {
     display: block;
+    width: fit-content;
 }
 
 .header-items {
@@ -281,6 +282,14 @@ label {
     margin: 0.25rem 0;
 }
 
+.sorting {
+    margin-left: auto;
+}
+
+.sorting label {
+    display: inline;
+}
+
 .like, .dislike {
     width: fit-content;
     cursor: pointer;
@@ -349,13 +358,22 @@ label {
     width: fit-content;
 }
 
+#sort-by {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fafafa;
+    border: 1px solid #ededed;
+    border-radius: 4rem;
+    padding: 0.5rem;
+    width: fit-content;
+}
+
 @media only screen and (max-width: 767px) {
     .section-wrapper {
         padding: 1rem 2rem;
         display: flex;
         justify-content: center;
     }
-
+    
     .anime-wrapper {
         margin-top: 1rem;
         display: flex;
