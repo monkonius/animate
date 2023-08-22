@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from django.db.models import Count
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
@@ -27,7 +28,26 @@ def anime(request, anime_id):
     data = json.loads(response.text)
     anime = data['data']
 
-    reviews = Review.objects.filter(anime_id=anime_id).order_by('-time')
+    sorting = request.GET.get('sort-by')
+    selected = {
+        'latest': False,
+        'oldest': False,
+        'likes': False,
+        'dislikes': False
+    }
+
+    if sorting == 'oldest':
+        reviews = Review.objects.filter(anime_id=anime_id).order_by('time')
+        selected['oldest'] = True
+    elif sorting == 'likes':
+        reviews = Review.objects.filter(anime_id=anime_id).annotate(like_count=Count('likes')).order_by('-like_count')
+        selected['likes'] = True
+    elif sorting == 'dislikes':
+        reviews = Review.objects.filter(anime_id=anime_id).annotate(dislike_count=Count('dislikes')).order_by('-dislike_count')
+        selected['dislikes'] = True
+    else:
+        reviews = Review.objects.filter(anime_id=anime_id).order_by('-time')
+        selected['latest'] = True
 
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -56,12 +76,14 @@ def anime(request, anime_id):
             'reviews': reviews,
             'liked_reviews': liked_reviews,
             'disliked_reviews': disliked_reviews,
-            'form': ReviewForm()
+            'form': ReviewForm(),
+            'selected': selected
         })
 
     return render(request, 'reviews/anime.html', {
         'anime': anime,
-        'reviews': reviews
+        'reviews': reviews,
+        'selected': selected
     })
 
 
