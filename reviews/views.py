@@ -133,7 +133,27 @@ def dislike(request, review_id):
 
 def profile(request, username):
     profile_user = User.objects.get(username=username)
-    reviews = Review.objects.filter(author=profile_user.id).order_by('-time')
+
+    sorting = request.GET.get('sort-by')
+    selected = {
+        'latest': False,
+        'oldest': False,
+        'likes': False,
+        'dislikes': False
+    }
+
+    if sorting == 'oldest':
+        reviews = Review.objects.filter(author=profile_user.id).order_by('time')
+        selected['oldest'] = True
+    elif sorting == 'likes':
+        reviews = Review.objects.filter(author=profile_user.id).annotate(like_count=Count('likes')).order_by('-like_count')
+        selected['likes'] = True
+    elif sorting == 'dislikes':
+        reviews = Review.objects.filter(author=profile_user.id).annotate(dislike_count=Count('dislikes')).order_by('-dislike_count')
+        selected['dislikes'] = True
+    else:
+        reviews = Review.objects.filter(author=profile_user.id).order_by('-time')
+        selected['latest'] = True
 
     if not request.user.is_anonymous:
         user = User.objects.get(id=request.user.id)
@@ -144,12 +164,14 @@ def profile(request, username):
             'profile_username': profile_user.username,
             'reviews': reviews,
             'liked_reviews': liked_reviews,
-            'disliked_reviews': disliked_reviews
+            'disliked_reviews': disliked_reviews,
+            'selected': selected
         })
 
     return render(request, 'reviews/profile.html', {
         'profile_username': profile_user.username,
-        'reviews': reviews
+        'reviews': reviews,
+        'selected': selected
     })
 
 
