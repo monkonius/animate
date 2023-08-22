@@ -8,6 +8,7 @@
 {% block script %}
     <script src="{% static 'reviews/review.js' %}" defer></script>
     <script src="{% static 'reviews/like.js' %}" defer></script>
+    <script src="{% static 'reviews/sort.js' %}" defer></script>
 {% endblock %}
 
 {% block main %}
@@ -73,17 +74,19 @@
                             </form>
                         </div>
                     {% endif %}
-                    <div class="reviews">
+                    <div id="reviews" class="reviews">
                         <h2>Reviews</h2>
                         {% if reviews %}
                             <div class="sorting">
-                                <label for="sort-by">Sort by:</label>
-                                <select name="sort-by" id="sort-by">
-                                    <option value="latest">Latest (default)</option>
-                                    <option value="oldest">Oldest</option>
-                                    <option value="likes">Likes</option>
-                                    <option value="dislikes">Dislikes</option>
-                                </select>
+                                <form action="#reviews" method="get">
+                                    <label for="sort-by">Sort by:</label>
+                                    <select name="sort-by" id="sort-by">
+                                        <option value="latest" {% if selected.latest %} selected {% endif %}>Latest (default)</option>
+                                        <option value="oldest" {% if selected.oldest %} selected {% endif %}>Oldest</option>
+                                        <option value="likes" {% if selected.likes %} selected {% endif %}>Likes</option>
+                                        <option value="dislikes" {% if selected.dislikes %} selected {% endif %}>Dislikes</option>
+                                    </select>
+                                </form>
                             </div>
                             {% for review in reviews %}
                                 <div id="{{ review.id }}" class="review">
