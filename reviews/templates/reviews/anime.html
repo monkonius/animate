@@ -60,7 +60,7 @@
             <div class="section-wrapper">
                 <div class="review-section">
                     {% if user.is_authenticated %}
-                        <button id="review-toggle" class="button" onclick="toggleReview()">Write a Review</button>
+                        <button id="review-toggle" class="button">Write a Review</button>
                         <div class="review-form">
                             <h2>Write a Review</h2>
                             <form action="{% url 'anime' anime.mal_id %}" method="post">
@@ -68,7 +68,7 @@
                                 <input type="hidden" name="anime_id" value="{{ anime.mal_id }}">
                                 {{ form }}
                                 <div class="button-wrapper">
-                                    <input class="button" type="button" value="Cancel" onclick="toggleReview()">
+                                    <input id="cancel" class="button" type="button" value="Cancel">
                                     <input class="button" type="submit" value="Post">
                                 </div>
                             </form>
