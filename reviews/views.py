@@ -40,10 +40,18 @@ def anime(request, anime_id):
         reviews = Review.objects.filter(anime_id=anime_id).order_by('time')
         selected['oldest'] = True
     elif sorting == 'likes':
-        reviews = Review.objects.filter(anime_id=anime_id).annotate(like_count=Count('likes')).order_by('-like_count')
+        reviews = (
+            Review.objects.filter(anime_id=anime_id)
+            .annotate(like_count=Count('likes'))
+            .order_by('-like_count')
+        )
         selected['likes'] = True
     elif sorting == 'dislikes':
-        reviews = Review.objects.filter(anime_id=anime_id).annotate(dislike_count=Count('dislikes')).order_by('-dislike_count')
+        reviews = (
+            Review.objects.filter(anime_id=anime_id)
+            .annotate(dislike_count=Count('dislikes'))
+            .order_by('-dislike_count')
+        )
         selected['dislikes'] = True
     else:
         reviews = Review.objects.filter(anime_id=anime_id).order_by('-time')
@@ -146,10 +154,18 @@ def profile(request, username):
         reviews = Review.objects.filter(author=profile_user.id).order_by('time')
         selected['oldest'] = True
     elif sorting == 'likes':
-        reviews = Review.objects.filter(author=profile_user.id).annotate(like_count=Count('likes')).order_by('-like_count')
+        reviews = (
+            Review.objects.filter(author=profile_user.id)
+            .annotate(like_count=Count('likes'))
+            .order_by('-like_count')
+        )
         selected['likes'] = True
     elif sorting == 'dislikes':
-        reviews = Review.objects.filter(author=profile_user.id).annotate(dislike_count=Count('dislikes')).order_by('-dislike_count')
+        reviews = (
+            Review.objects.filter(author=profile_user.id)
+            .annotate(dislike_count=Count('dislikes'))
+            .order_by('-dislike_count')
+        )
         selected['dislikes'] = True
     else:
         reviews = Review.objects.filter(author=profile_user.id).order_by('-time')
