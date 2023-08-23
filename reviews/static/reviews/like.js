@@ -40,6 +40,9 @@ function likeReview(node) {
                 dislike.children[1].innerHTML = --dislikeCount;
             }
         })
+        .catch(error => {
+            console.error(error);
+        })
 }
 
 function dislikeReview(node) {
@@ -67,5 +70,8 @@ function dislikeReview(node) {
                 let likeCount = Number(like.children[1].innerHTML);
                 like.children[1].innerHTML = --likeCount;
             }
+        })
+        .catch(error => {
+            console.error(error);
         })
 }
