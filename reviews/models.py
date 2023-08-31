@@ -17,7 +17,7 @@ class Review(models.Model):
     anime_id = models.IntegerField()
     content = models.TextField()
     recommendation = models.CharField(max_length=2, choices=RECOMMENDATION, default=None)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
     time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
