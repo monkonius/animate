@@ -5,7 +5,7 @@
 #### Distinctiveness and Complexity:
 This project is distinct from previous CS50W projects since it is a review web app that makes use of both an external and internal API, that is to say it accesses a third-party API (Jikan) and one written within the app (like and dislike functionality). For example, the third-party API is accessed to fetch top airing anime and specific anime information such as the number of episodes and its studio. 
 
-In terms of complexity, the web app has a sorting option for reviews listed in an anime's or user's page. The reviews can be sorted by latest (the default) and oldest reviews, and by likes and dislikes. The app also features more complex interactivity for the user, such as the dropdown menu.
+In terms of complexity, the web app has more features than previous projects. It has a sorting option for reviews listed in an anime's or user's page, where the reviews can be sorted by latest (the default) and oldest reviews, and by likes and dislikes. The app also features more complex interactivity for the user, such as the dropdown menu.
 
 ## Files:
 The main logic of the app is found in `views.py`. The views are mapped to particular URLs found in the `urls.py` file. Note that certain URLs cannot be accessed by simply typing into the address bar as they require a POST method to access. For example, if a user attempts to like a post without appropriately clicking the like icon, they will be redirected and met with an error message:
@@ -60,17 +60,18 @@ reviews = (
 ```
 
 ## Installation:
-Clone the repository, create a virtual environment, and install the necessary packages from the requirements file.
+Clone the repository, create and activate a virtual environment, and install the necessary packages from the requirements file.
 ```
 git clone https://github.com/monkonius/animate
 cd animate/
 python3 -m venv .venv
+. .venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
 ## Usage:
-Run the application while inside the activated virtual environment within the Animate repository.
+To run the application locally, activate the virtual environment within the Animate repository, and be sure to use the `--insecure` flag since Debug is set to False.
 ```
 . .venv/bin/activate
-python3 manage.py runserver
+python3 manage.py runserver --insecure
 ```
