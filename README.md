@@ -17,6 +17,8 @@ if request.method != 'POST':
 
 The `models.py` contains all the models needed for the web app, such as users, reviews, likes, and dislikes. The review form is created as a Form class from the Django review model since they already map closely to one another, which can be seen in `forms.py`.
 
+Tests for the models and views can be found in the `tests.py` file.
+
 `index.js` and `search.js` call upon the Jikan API in order to fetch and render the top airing anime and anime search results respectively. Their calls look like this:
 ```
 const response = await fetch('https://api.jikan.moe/v4/top/anime?filter=airing');
