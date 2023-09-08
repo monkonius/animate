@@ -12,9 +12,10 @@ class Review(models.Model):
         ('MF', 'Mixed Feelings'),
         ('NR', 'Not Recommended')
     ]
-    
+
     id = models.BigAutoField(primary_key=True)
     anime_id = models.IntegerField()
+    anime_title = models.CharField(max_length=256)
     content = models.TextField()
     recommendation = models.CharField(max_length=2, choices=RECOMMENDATION, default=None)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
