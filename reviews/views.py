@@ -61,13 +61,14 @@ def anime(request, anime_id):
         form = ReviewForm(request.POST)
         if form.is_valid():
             anime_id = request.POST.get('anime_id')
+            anime_title = request.POST.get('anime_title')
             content = form.cleaned_data['content']
             recommendation = form.cleaned_data['recommendation']
             author = request.user
 
             new_review = Review(
-                anime_id=int(anime_id), content=content, 
-                recommendation=recommendation, author=author
+                anime_id=int(anime_id), anime_title=anime_title,
+                content=content, recommendation=recommendation, author=author
             )
             new_review.save()
 
