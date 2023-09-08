@@ -65,6 +65,7 @@
                             <form action="{% url 'anime' anime.mal_id %}" method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="anime_id" value="{{ anime.mal_id }}">
+                                <input type="hidden" name="anime_title" value="{{ anime.title }}">
                                 {{ form }}
                                 <div class="button-wrapper">
                                     <input id="cancel" class="button" type="button" value="Cancel">
