@@ -21,7 +21,7 @@
     <section>
         <div class="section-container">
             <div class="section-wrapper">
-                <div class="reviews">
+                <div id="reviews" class="reviews">
                     <h2>Their Reviews</h2>
                         {% if reviews %}
                             <div class="sorting">
@@ -38,7 +38,7 @@
                             {% for review in reviews %}
                                 <div id="{{ review.id }}" class="review">
                                     <div class="review-header">
-                                        <strong><a href="{% url 'anime' review.anime_id %}">{{ review.anime_id }}</a></strong>
+                                        <strong><a href="{% url 'anime' review.anime_id %}">{{ review.anime_title }}</a></strong>
                                         <span>{{ review.time }}</span>
                                     </div>
                                     {% if review.recommendation == 'RE' %}
