@@ -6,10 +6,12 @@ class ReviewTestCase(TestCase):
     def setUp(self):
         testuser = User.objects.create_user('testuser', 'testuser@email.com', 'password')
         Review.objects.create(
-            anime_id=1, content='test', recommendation='RE', author=testuser
+            anime_id=1, anime_title='Cowboy Bebop', content='test',
+            recommendation='RE', author=testuser
         )
         Review.objects.create(
-            anime_id=20, content='test', recommendation='MF', author=testuser
+            anime_id=20, anime_title='Naruto', content='test',
+            recommendation='MF', author=testuser
         )
 
     def test_review_count(self):
@@ -26,7 +28,7 @@ class ReviewTestCase(TestCase):
     
     def test_review_string_rep(self):
         review = Review.objects.get(anime_id=1)
-        string = 'Review on anime no. 1 by testuser'
+        string = 'Review on anime 1: Cowboy Bebop by testuser'
         self.assertEqual(str(review), string)
 
 
@@ -34,10 +36,12 @@ class PageTests(TestCase):
     def setUp(self):
         testuser = User.objects.create_user('testuser', 'testuser@email.com', 'password')
         Review.objects.create(
-            anime_id=1, content='test', recommendation='RE', author=testuser
+            anime_id=1, anime_title='Cowboy Bebop', content='test',
+            recommendation='RE', author=testuser
         )
         Review.objects.create(
-            anime_id=20, content='test', recommendation='MF', author=testuser
+            anime_id=20, anime_title='Naruto', content='test',
+            recommendation='MF', author=testuser
         )
 
     def test_anime_page(self):
