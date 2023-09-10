@@ -22,7 +22,7 @@ class Review(models.Model):
     time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Review on anime no. {self.anime_id} by {self.author}'
+        return f'Review on anime {self.anime_id}: {self.anime_title} by {self.author}'
     
 
 class Like(models.Model):
