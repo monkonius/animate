@@ -23,6 +23,15 @@ def index(request):
     return render(request, 'reviews/index.html')
 
 
+def random(request):
+    response = requests.get('https://api.jikan.moe/v4/random/anime')
+    data = json.loads(response.text)
+    anime = data['data']
+
+    messages.success(request, 'Random anime chosen!')
+    return HttpResponseRedirect(reverse('anime', kwargs={'anime_id': anime['mal_id']}))
+
+
 def anime(request, anime_id):
     response = requests.get(f'https://api.jikan.moe/v4/anime/{anime_id}')
     data = json.loads(response.text)
