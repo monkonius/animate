@@ -129,6 +129,14 @@ label {
     width: 72%;
 }
 
+.search-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .search-form {
     width: 100%;
     max-width: 40rem;

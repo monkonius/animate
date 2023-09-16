@@ -41,10 +41,15 @@
     <section>
         <div class="section-container">
             <div class="section-wrapper">
-                <form class="search-form" action="/" method="get">
-                    <input class="search-input" type="text" name="q" id="search" placeholder="Search anime" required>
-                    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
-                </form>
+                <div class="search-wrapper">
+                    <form class="search-form" action="/" method="get">
+                        <input class="search-input" type="text" name="q" id="search" placeholder="Search anime" required>
+                        <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                    <div class="button-wrapper">
+                        <a class="button" href="{% url 'random' %}">Random Anime</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
