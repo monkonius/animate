@@ -34,7 +34,11 @@
                             <img src="{{ anime.images.jpg.large_image_url }}" alt="{{ anime.title }}">
                         </div>
                         <div>
-                            <p>{{ anime.synopsis }}</p>
+                            {% if anime.synopsis == None %}
+                                <p>No synopsis written yet for this anime...</p>
+                            {% else %}
+                                <p>{{ anime.synopsis }}</p>
+                            {% endif %}
                             <h2>Information</h2>
                             <p>Type: {{ anime.type }}</p>
                             <p>Episodes: {%if anime.episodes %} {{anime.episodes }} {% else %} Unknown {% endif %}</p>
