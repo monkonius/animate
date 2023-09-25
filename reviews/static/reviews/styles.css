@@ -136,12 +136,12 @@ label {
 }
 
 .search-form {
+  display: flex;
+  align-items: center;
   width: 100%;
   max-width: 40rem;
   background-color: #fafafa;
   border-radius: 4rem;
-  display: flex;
-  align-items: center;
 }
 
 .search-input {
@@ -385,11 +385,11 @@ label {
     padding: 2rem 1rem;
   }
   .anime-wrapper {
-    margin-top: 1rem;
     display: flex;
+    align-items: center;
+    margin-top: 1rem;
     gap: 2rem;
     text-align: left;
-    align-items: center;
   }
   .anime-info h2 {
     text-align: left;
