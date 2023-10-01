@@ -55,7 +55,7 @@ The `models.py` contains all the models needed for the web app, such as users, r
 
 Tests for the models and views can be found in the `tests.py` file.
 
-`index.js` and `search.js` call upon the Jikan API in order to fetch and render the top airing anime and anime search results respectively. `like.js`, on the other hand, makes use of the internal API whenever a user likes or dislikes a review. First, it sends the request, then the logic in `views.py` will handle the request.
+The JavaScript files are located in the static folder of the web app. `index.js` and `search.js` call upon the Jikan API in order to fetch and render the top airing anime and anime search results respectively. `like.js`, on the other hand, makes use of the internal API whenever a user likes or dislikes a review. First, it sends the request, then the logic in `views.py` will handle the request.
 
 `like.js` also handles incrementing or decrementing the like/dislike counter, as well as highlighting the icon to show the user they liked/disliked the review.
 
@@ -69,7 +69,7 @@ reviews = (
     .order_by('-like_count')
 )
 ```
-
+The web app's stylesheets can also be found in the static folder. Sass is used as a CSS preprocessor for its features such as nesting, variables, and mixins, among others. The `styles.scss` file is then compiled into regular CSS `styles.css` in order to link it to the HTML.
 ## Installation:
 Clone the repository, create and activate a virtual environment, and install the necessary packages from the requirements file.
 ```
@@ -79,6 +79,7 @@ python3 -m venv .venv
 . .venv/bin/activate
 pip3 install -r requirements.txt
 ```
+Be sure to also have a `SECRET_KEY` in a `.env` file for the web app to work properly.
 
 ## Usage:
 To run the application locally, activate the virtual environment within the Animate repository, and be sure to use the `--insecure` flag since Debug is set to False.
