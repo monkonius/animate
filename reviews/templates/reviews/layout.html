@@ -3,64 +3,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block title %}
-    {% endblock %}
-    <link rel="shortcut icon" href="{% static 'reviews/favicon.ico' %}" type="image/x-icon">
-    <link href="{% static 'reviews/styles.css' %}" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="{% static 'reviews/dropdown.js' %}" defer></script>
-    {% block script %}
-    {% endblock %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block title %}
+  {% endblock %}
+  <link rel="shortcut icon" href="{% static 'reviews/favicon.ico' %}" type="image/x-icon">
+  <link href="{% static 'reviews/styles.css' %}" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="{% static 'reviews/dropdown.js' %}" defer></script>
+  {% block script %}
+  {% endblock %}
 </head>
 <body>
-    <header>
-        <div class="header-items">
-            <a href="/" class="logo">
-                <div class="logo-text">
-                    <span style="color: #fff; float: left;">ANI</span>
-                    <span style="color: #764d69;">MATE</span>
-                </div>
-            </a>
-            {% if user.is_authenticated %}
-                <div class="dropdown-container">
-                    <button class="dropdown-button dropdown" onclick="showContent(this)">
-                        <i class="fa fa-user dropdown"></i>
-                        <i class="fa fa-caret-down dropdown"></i>
-                    </button>
-                    <div class="dropdown-content">
-                        <p class="dropdown-username">{{ user.username }}</p>
-                        <a href="{% url 'profile' user.username %}">
-                            <i class="fa fa-user"></i>
-                            Profile
-                        </a>
-                        <a href="/">
-                            <i class="fa fa-home"></i>
-                            Home
-                        </a>
-                        <a href="{% url 'logout' %}">
-                            <i class="fa fa-sign-out"></i>
-                            Log Out
-                        </a>
-                    </div>
-                </div>
-            {% else %}
-                <a href="{% url 'login' %}" class="header-auth">Log In</a>
-            {% endif %}
+  <header>
+    <div class="header-items">
+      <a href="/" class="logo">
+        <div class="logo-text">
+          <span style="color: #fff; float: left;">ANI</span>
+          <span style="color: #764d69;">MATE</span>
         </div>
-    </header>
-    <main>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert {{ message.tags }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-        {% block main %}
-        {% endblock %}
-    </main>
+      </a>
+      {% if user.is_authenticated %}
+        <div class="dropdown-container">
+          <button class="dropdown-button dropdown" onclick="showContent(this)">
+            <i class="fa fa-user dropdown"></i>
+            <i class="fa fa-caret-down dropdown"></i>
+          </button>
+          <div class="dropdown-content">
+            <p class="dropdown-username">{{ user.username }}</p>
+            <a href="{% url 'profile' user.username %}">
+              <i class="fa fa-user"></i>
+              Profile
+            </a>
+            <a href="/">
+              <i class="fa fa-home"></i>
+              Home
+            </a>
+            <a href="{% url 'logout' %}">
+              <i class="fa fa-sign-out"></i>
+              Log Out
+            </a>
+          </div>
+        </div>
+      {% else %}
+        <a href="{% url 'login' %}" class="header-auth">Log In</a>
+      {% endif %}
+    </div>
+  </header>
+  <main>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert {{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+    {% block main %}
+    {% endblock %}
+  </main>
 </body>
 </html>

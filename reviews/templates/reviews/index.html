@@ -2,65 +2,65 @@
 {% load static %}
 
 {% block title %}
-    <title>Animate</title>
+  <title>Animate</title>
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'reviews/index.js' %}" defer></script>
+  <script src="{% static 'reviews/index.js' %}" defer></script>
 {% endblock %}
 
 {% block main %}
-    <section>
-        <div class="section-container">
-            <div class="section-wrapper">
-                <div class="cta">
-                    {% if user.is_authenticated %}
-                        <h1>Welcome to Animate, {{ user.username }}!</h1>
-                        <p class="cta-text">
-                            You have written {{ user.reviews.all|length }} {% if user.reviews.all|length == 1 %} review {% else %} reviews {% endif %} so far.
-                            Interested in checking out more anime? Search for a particular one in the search bar or check out the top airing ones below.
-                        </p>
-                        <div class="button-wrapper">
-                            <a class="button" href="{% url 'logout' %}">Log Out</a>
-                        </div>
-                    {% else %}
-                        <h1>Welcome to Animate!</h1>
-                        <p class="cta-text">
-                            Are you an anime fan looking for a centralized database to browse through? Look no further than Animate!
-                            We provide a user-friendly platform for all of your anime needs. Join the community today!
-                        </p>
-                        <div class="button-wrapper">
-                            <a class="button" href="{% url 'login' %}">Log In</a>
-                            <a class="button" href="{% url 'register' %}">Sign Up</a>
-                        </div>
-                    {% endif %}
-                </div>
+  <section>
+    <div class="section-container">
+      <div class="section-wrapper">
+        <div class="cta">
+          {% if user.is_authenticated %}
+            <h1>Welcome to Animate, {{ user.username }}!</h1>
+            <p class="cta-text">
+              You have written {{ user.reviews.all|length }} {% if user.reviews.all|length == 1 %} review {% else %} reviews {% endif %} so far.
+              Interested in checking out more anime? Search for a particular one in the search bar or check out the top airing ones below.
+            </p>
+            <div class="button-wrapper">
+              <a class="button" href="{% url 'logout' %}">Log Out</a>
             </div>
-        </div>
-    </section>
-    <section>
-        <div class="section-container">
-            <div class="section-wrapper">
-                <div class="search-wrapper">
-                    <form class="search-form" action="/" method="get">
-                        <input class="search-input" type="text" name="q" id="search" placeholder="Search anime" required>
-                        <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
-                    </form>
-                    <div class="button-wrapper">
-                        <a class="button" href="{% url 'random' %}">Random Anime</a>
-                    </div>
-                </div>
+          {% else %}
+            <h1>Welcome to Animate!</h1>
+            <p class="cta-text">
+              Are you an anime fan looking for a centralized database to browse through? Look no further than Animate!
+              We provide a user-friendly platform for all of your anime needs. Join the community today!
+            </p>
+            <div class="button-wrapper">
+              <a class="button" href="{% url 'login' %}">Log In</a>
+              <a class="button" href="{% url 'register' %}">Sign Up</a>
             </div>
+          {% endif %}
         </div>
-    </section>
-    <section>
-        <div class="section-container">
-            <div class="section-wrapper">
-                <div id="top-anime">
-                    <h2>Top Airing Anime</h2>
-                    <div id="top-anime-cards" class="cards"></div>
-                </div>
-            </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="section-container">
+      <div class="section-wrapper">
+        <div class="search-wrapper">
+          <form class="search-form" action="/" method="get">
+            <input class="search-input" type="text" name="q" id="search" placeholder="Search anime" required>
+            <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+          </form>
+          <div class="button-wrapper">
+            <a class="button" href="{% url 'random' %}">Random Anime</a>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="section-container">
+      <div class="section-wrapper">
+        <div id="top-anime">
+          <h2>Top Airing Anime</h2>
+          <div id="top-anime-cards" class="cards"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}

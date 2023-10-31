@@ -2,163 +2,163 @@
 {% load static %}
 
 {% block title %}
-    <title>{{ anime.title }}</title>
+  <title>{{ anime.title }}</title>
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'reviews/review.js' %}" defer></script>
-    <script src="{% static 'reviews/like.js' %}" defer></script>
+  <script src="{% static 'reviews/review.js' %}" defer></script>
+  <script src="{% static 'reviews/like.js' %}" defer></script>
 {% endblock %}
 
 {% block main %}
-    <section>
-        <div class="section-container">
-            <div class="section-wrapper">
-                <form class="search-form" action="/" method="get">
-                    <input class="search-input" type="text" name="q" id="search" placeholder="Search anime" required>
-                    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+  <section>
+    <div class="section-container">
+      <div class="section-wrapper">
+        <form class="search-form" action="/" method="get">
+          <input class="search-input" type="text" name="q" id="search" placeholder="Search anime" required>
+          <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="section-container">
+      <div class="section-wrapper">
+        <div class="anime-info">
+          <h1>{{ anime.title }}</h1>
+          {% if anime.title_synonyms %}
+            <p>Also known as {% for synonym in anime.title_synonyms %} <strong>{{ synonym }}</strong>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+          {% endif %}
+          <div class="anime-wrapper">
+            <div>
+              <img src="{{ anime.images.jpg.large_image_url }}" alt="{{ anime.title }}">
+            </div>
+            <div>
+              {% if anime.synopsis == None %}
+                <p>No synopsis written yet for this anime...</p>
+              {% else %}
+                <p>{{ anime.synopsis }}</p>
+              {% endif %}
+              <h2>Information</h2>
+              <p>Type: {{ anime.type }}</p>
+              <p>Episodes: {%if anime.episodes %} {{anime.episodes }} {% else %} Unknown {% endif %}</p>
+              <p>Status: {{ anime.status }}</p>
+              <p>Aired: {{ anime.aired.string }}</p>
+              <p>Genres: {% for genre in anime.genres %} {{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+              <p>Studios: 
+                {% if anime.studios %}
+                  {% for studio in anime.studios %} {{ studio.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                {% else %}
+                  None found
+                {% endif %}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="section-container">
+      <div class="section-wrapper">
+        <div class="review-section">
+          {% if user.is_authenticated %}
+            <button id="review-toggle" class="button">Write a Review</button>
+            <div class="review-form">
+              <h2>Write a Review</h2>
+              <form action="{% url 'anime' anime.mal_id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="anime_id" value="{{ anime.mal_id }}">
+                <input type="hidden" name="anime_title" value="{{ anime.title }}">
+                {{ form }}
+                <div class="button-wrapper">
+                  <input id="cancel" class="button" type="button" value="Cancel">
+                  <input class="button" type="submit" value="Post">
+                </div>
+              </form>
+            </div>
+          {% endif %}
+          <div id="reviews" class="reviews">
+            <h2>Reviews</h2>
+            {% if reviews %}
+              <div class="sorting">
+                <form action="#reviews" method="get">
+                  <label for="sort-by">Sort by:</label>
+                  <select name="sort-by" id="sort-by">
+                    <option value="latest" {% if selected.latest %} selected {% endif %}>Latest (default)</option>
+                    <option value="oldest" {% if selected.oldest %} selected {% endif %}>Oldest</option>
+                    <option value="likes" {% if selected.likes %} selected {% endif %}>Likes</option>
+                    <option value="dislikes" {% if selected.dislikes %} selected {% endif %}>Dislikes</option>
+                  </select>
                 </form>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="section-container">
-            <div class="section-wrapper">
-                <div class="anime-info">
-                    <h1>{{ anime.title }}</h1>
-                    {% if anime.title_synonyms %}
-                        <p>Also known as {% for synonym in anime.title_synonyms %} <strong>{{ synonym }}</strong>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-                    {% endif %}
-                    <div class="anime-wrapper">
-                        <div>
-                            <img src="{{ anime.images.jpg.large_image_url }}" alt="{{ anime.title }}">
-                        </div>
-                        <div>
-                            {% if anime.synopsis == None %}
-                                <p>No synopsis written yet for this anime...</p>
-                            {% else %}
-                                <p>{{ anime.synopsis }}</p>
-                            {% endif %}
-                            <h2>Information</h2>
-                            <p>Type: {{ anime.type }}</p>
-                            <p>Episodes: {%if anime.episodes %} {{anime.episodes }} {% else %} Unknown {% endif %}</p>
-                            <p>Status: {{ anime.status }}</p>
-                            <p>Aired: {{ anime.aired.string }}</p>
-                            <p>Genres: {% for genre in anime.genres %} {{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-                            <p>Studios: 
-                                {% if anime.studios %}
-                                    {% for studio in anime.studios %} {{ studio.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
-                                {% else %}
-                                    None found
-                                {% endif %}
-                            </p>
-                        </div>
+              </div>
+              {% for review in reviews %}
+                <div id="{{ review.id }}" class="review">
+                  <div class="review-header">
+                    <strong><a href="{% url 'profile' review.author %}">{{ review.author }}</a></strong>
+                    <span>{{ review.time }}</span>
+                  </div>
+                  {% if review.recommendation == 'RE' %}
+                    <div class="recommendation">
+                      <i class="fa fa-star"></i>
+                      {{ review.get_recommendation_display }}
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="section-container">
-            <div class="section-wrapper">
-                <div class="review-section">
-                    {% if user.is_authenticated %}
-                        <button id="review-toggle" class="button">Write a Review</button>
-                        <div class="review-form">
-                            <h2>Write a Review</h2>
-                            <form action="{% url 'anime' anime.mal_id %}" method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="anime_id" value="{{ anime.mal_id }}">
-                                <input type="hidden" name="anime_title" value="{{ anime.title }}">
-                                {{ form }}
-                                <div class="button-wrapper">
-                                    <input id="cancel" class="button" type="button" value="Cancel">
-                                    <input class="button" type="submit" value="Post">
-                                </div>
-                            </form>
-                        </div>
-                    {% endif %}
-                    <div id="reviews" class="reviews">
-                        <h2>Reviews</h2>
-                        {% if reviews %}
-                            <div class="sorting">
-                                <form action="#reviews" method="get">
-                                    <label for="sort-by">Sort by:</label>
-                                    <select name="sort-by" id="sort-by">
-                                        <option value="latest" {% if selected.latest %} selected {% endif %}>Latest (default)</option>
-                                        <option value="oldest" {% if selected.oldest %} selected {% endif %}>Oldest</option>
-                                        <option value="likes" {% if selected.likes %} selected {% endif %}>Likes</option>
-                                        <option value="dislikes" {% if selected.dislikes %} selected {% endif %}>Dislikes</option>
-                                    </select>
-                                </form>
-                            </div>
-                            {% for review in reviews %}
-                                <div id="{{ review.id }}" class="review">
-                                    <div class="review-header">
-                                        <strong><a href="{% url 'profile' review.author %}">{{ review.author }}</a></strong>
-                                        <span>{{ review.time }}</span>
-                                    </div>
-                                    {% if review.recommendation == 'RE' %}
-                                        <div class="recommendation">
-                                            <i class="fa fa-star"></i>
-                                            {{ review.get_recommendation_display }}
-                                        </div>
-                                    {% elif review.recommendation == 'MF' %}
-                                        <div class="recommendation">
-                                            <i class="fa fa-star-half-stroke"></i>
-                                            {{ review.get_recommendation_display }}
-                                        </div>
-                                    {% else %}
-                                        <div class="recommendation">
-                                            <i class="fa-regular fa-star"></i>
-                                            {{ review.get_recommendation_display }}
-                                        </div>
-                                    {% endif %}
-                                    <p>{{ review.content|linebreaksbr }}</p>
-                                    {% if user.is_authenticated %}
-                                        {% if review in liked_reviews %}
-                                            <div class="review-interaction">
-                                                <div class="like highlighted" onclick="likeReview(this)">
-                                                    <i class="fa fa-thumbs-up"></i>
-                                                    <span>{{ review.likes.all|length }}</span>
-                                                </div>
-                                                <div class="dislike" onclick="dislikeReview(this)">
-                                                    <i class="fa fa-thumbs-down"></i>
-                                                    <span>{{ review.dislikes.all|length }}</span>
-                                                </div>
-                                            </div>
-                                        {% elif review in disliked_reviews %}
-                                            <div class="review-interaction">
-                                                <div class="like" onclick="likeReview(this)">
-                                                    <i class="fa fa-thumbs-up"></i>
-                                                    <span>{{ review.likes.all|length }}</span>
-                                                </div>
-                                                <div class="dislike highlighted" onclick="dislikeReview(this)">
-                                                    <i class="fa fa-thumbs-down"></i>
-                                                    <span>{{ review.dislikes.all|length }}</span>
-                                                </div>
-                                            </div>
-                                        {% else %}
-                                            <div class="review-interaction">
-                                                <div class="like" onclick="likeReview(this)">
-                                                    <i class="fa fa-thumbs-up"></i>
-                                                    <span>{{ review.likes.all|length }}</span>
-                                                </div>
-                                                <div class="dislike" onclick="dislikeReview(this)">
-                                                    <i class="fa fa-thumbs-down"></i>
-                                                    <span>{{ review.dislikes.all|length }}</span>
-                                                </div>
-                                            </div>
-                                        {% endif %}
-                                    {% endif %}
-                                </div>
-                            {% endfor %}
-                        {% else %}
-                            <p>No reviews yet! Be the first to write one!</p>
-                        {% endif %}
+                  {% elif review.recommendation == 'MF' %}
+                    <div class="recommendation">
+                      <i class="fa fa-star-half-stroke"></i>
+                      {{ review.get_recommendation_display }}
                     </div>
+                  {% else %}
+                    <div class="recommendation">
+                      <i class="fa-regular fa-star"></i>
+                      {{ review.get_recommendation_display }}
+                    </div>
+                  {% endif %}
+                  <p>{{ review.content|linebreaksbr }}</p>
+                  {% if user.is_authenticated %}
+                    {% if review in liked_reviews %}
+                      <div class="review-interaction">
+                        <div class="like highlighted" onclick="likeReview(this)">
+                          <i class="fa fa-thumbs-up"></i>
+                          <span>{{ review.likes.all|length }}</span>
+                        </div>
+                        <div class="dislike" onclick="dislikeReview(this)">
+                          <i class="fa fa-thumbs-down"></i>
+                          <span>{{ review.dislikes.all|length }}</span>
+                        </div>
+                      </div>
+                    {% elif review in disliked_reviews %}
+                      <div class="review-interaction">
+                        <div class="like" onclick="likeReview(this)">
+                          <i class="fa fa-thumbs-up"></i>
+                          <span>{{ review.likes.all|length }}</span>
+                        </div>
+                        <div class="dislike highlighted" onclick="dislikeReview(this)">
+                          <i class="fa fa-thumbs-down"></i>
+                          <span>{{ review.dislikes.all|length }}</span>
+                        </div>
+                      </div>
+                    {% else %}
+                      <div class="review-interaction">
+                        <div class="like" onclick="likeReview(this)">
+                          <i class="fa fa-thumbs-up"></i>
+                          <span>{{ review.likes.all|length }}</span>
+                        </div>
+                        <div class="dislike" onclick="dislikeReview(this)">
+                          <i class="fa fa-thumbs-down"></i>
+                          <span>{{ review.dislikes.all|length }}</span>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% endif %}
                 </div>
-            </div>
+              {% endfor %}
+            {% else %}
+              <p>No reviews yet! Be the first to write one!</p>
+            {% endif %}
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 {% endblock %}

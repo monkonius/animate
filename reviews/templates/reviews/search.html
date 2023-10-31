@@ -2,32 +2,32 @@
 {% load static %}
 
 {% block title %}
-    <title>Search Anime</title>
+  <title>Search Anime</title>
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'reviews/search.js' %}" defer></script>
+  <script src="{% static 'reviews/search.js' %}" defer></script>
 {% endblock %}
 
 {% block main %}
-    <section>
-        <div class="section-container">
-            <div class="section-wrapper">
-                <form class="search-form" action="/" method="get">
-                    <input class="search-input" type="text" name="q" id="search" placeholder="Search anime" value="{{ query }}" required>
-                    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
+  <section>
+    <div class="section-container">
+      <div class="section-wrapper">
+        <form class="search-form" action="/" method="get">
+          <input class="search-input" type="text" name="q" id="search" placeholder="Search anime" value="{{ query }}" required>
+          <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="section-container">
+      <div class="section-wrapper">
+        <div id="anime-search">
+          <h1>Search Results for "{{ query }}"</h1>
+          <div id="anime-search-cards" class="cards"></div>
         </div>
-    </section>
-    <section>
-        <div class="section-container">
-            <div class="section-wrapper">
-                <div id="anime-search">
-                    <h1>Search Results for "{{ query }}"</h1>
-                    <div id="anime-search-cards" class="cards"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+      </div>
+    </div>
+  </section>
 {% endblock %}
